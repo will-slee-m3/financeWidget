@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mackafat/financeWidget#readme",
   "dependencies": {
-    "react": "^15.6.1"
+    "react": "^15.6.1",
+    "redux": "^3.7.2"
   }
 }
