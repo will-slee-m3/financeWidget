@@ -3,6 +3,7 @@ import {
   Animated,
   SelectionBar,
 } from '../../containers';
+import styles from './styles';
 
 export default class Root extends Component {
   constructor() {
@@ -11,9 +12,17 @@ export default class Root extends Component {
       gotSorted: false,
       selectedAssets: [],
       selectedFilter: null,
+      selectedMeasure: null,
+      filters: [],
+      filterSelectionOptions: ['region','sector', 'PE'],
+      measureSelectionOptions: [],
+      hideSelectionBar: false,
+      // measureSelectionOptions: ['a', 'b', 'c', 'd'],
     };
     this.toggleAssetSelection = this.toggleAssetSelection.bind(this);
     this.toggleFilter = this.toggleFilter.bind(this);
+    this.toggleMeasure = this.toggleMeasure.bind(this);
+    this.toggleSelectionBar = () => this.setState({ hideSelectionBar: !this.state.hideSelectionBar })
   }
 
   componentDidMount() {
@@ -55,6 +64,18 @@ export default class Root extends Component {
     }
   }
 
+  toggleMeasure(selectedMeasure){
+    if (this.state.selectedMeasure !== selectedMeasure) {
+      this.setState({
+        selectedMeasure
+      }, () => this.state.webSocketConnection.send(JSON.stringify({ measureUpdate: selectedMeasure }) ));
+    } else {
+      this.setState({
+        selectedMeasure: null
+      }, () => this.state.webSocketConnection.send(JSON.stringify({ measureUpdate: null }) ));
+    }
+  }
+
   render() {
     const {
       sorted,
@@ -62,24 +83,45 @@ export default class Root extends Component {
       gotSorted,
       selectedAssets,
       selectedFilter,
+      filters,
+      filterSelectionOptions,
+      measureSelectionOptions,
+      selectedMeasure,
+      hideSelectionBar,
     } = this.state;
-    const filters = [ 'sector', 'region' ]
+    console.log('****', filters);
     return (
-      <div id="root-container">
+      <div id="root-container" style={styles.container}>
         {
           sorted ?
-          <Animated data={sorted} /> :
+          <Animated
+            filters={filters}
+            data={sorted} /> :
           null
         }
         <SelectionBar
+          toggleSelectionBar={this.toggleSelectionBar}
+          hidden={hideSelectionBar}
+          // hidden={true}
           data={assets}
           top={gotSorted && selectedAssets.length > 0}
           selectedAssets={selectedAssets}
           toggleAssetSelection={this.toggleAssetSelection}
-          filters={filters}
+          filterSelectionOptions={filterSelectionOptions}
           selectedFilter={selectedFilter}
           toggleFilter={this.toggleFilter}
+          measureSelectionOptions={measureSelectionOptions}
+          selectedMeasure={selectedMeasure}
+          toggleMeasure={this.toggleMeasure}
         />
+        {hideSelectionBar ?
+          <div style={{ position: 'fixed', top: '95%', left: '95%'}}
+               onClick={this.toggleSelectionBar}
+          >
+            Make selection
+          </div> :
+          null
+        }
       </div>
     );
   }

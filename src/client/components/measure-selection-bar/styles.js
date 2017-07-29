@@ -1,13 +1,11 @@
 const styles = {
-  assetCard: {
+  measureCard: {
     height: 100,
-    width: '10%',
+    width: '30%',
     float: 'left',
-    textAlign: 'center',
-    verticalAlign: 'center',
   },
-  assetCardText: {
-    marginTop: 40,
+  bar: {
+    height: 150,
   },
   barTitle: {
     paddingLeft: 30,

@@ -1,8 +1,14 @@
 const styles = {
   filterCard: {
     height: 100,
-    width: '10%',
+    width: '30%',
     float: 'left',
+  },
+  bar: {
+    height: 150,
+  },
+  barTitle: {
+    paddingLeft: 30,
   }
 }
 

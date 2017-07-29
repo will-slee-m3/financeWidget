@@ -24,7 +24,16 @@ const regions = [
   'Arctic',
 ]
 
-const uuidArray = [...new Array(10)].map(() => uuid())
+const PE = [
+  '0 - 9.9',
+  '10 - 19.9',
+  '20 - 29.9',
+  '30 - 39.9',
+  '40 - 49.9',
+  '50 +'
+]
+
+const uuidArray = [...new Array(100)].map(() => uuid())
 
 const names = uuidArray.map(u => u.slice(0,6));
 
@@ -34,6 +43,7 @@ const assets = uuidArray.map((u,i) => (
     name: `Asset ${names[i]}`,
     sector: sectors[Math.floor(Math.random() * sectors.length)],
     region: regions[Math.floor(Math.random() * regions.length)],
+    PE: PE[Math.floor(Math.random() * PE.length)],
     price: Math.floor(Math.random() * 20000) / 10000,
   }
 ));

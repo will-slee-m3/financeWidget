@@ -5,16 +5,16 @@ export default class FilterSelectionBar extends Component {
 
   render() {
     const {
-      filters,
+      filterSelectionOptions,
       toggleFilter,
       selectedFilter
     } = this.props;
     return (
-      <div>
-        <h4>Select Filter</h4>
-        {!filters ?
+      <div style={styles.bar}>
+        <h4 style={styles.barTitle}>Select Filter</h4>
+        {!filterSelectionOptions ?
           `Retrieving filters from the cobblers...` :
-          filters.map(element =>
+          filterSelectionOptions.map(element =>
             <div style={Object.assign(
                 {},
                 styles.filterCard,
