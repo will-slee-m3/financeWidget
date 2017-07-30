@@ -22,13 +22,10 @@ app.get('/', (_, res) => {
   res.sendFile(path.resolve(__dirname, '../../index.html'))
 });
 
-// let selectedAssets = [assets[0]];
 let selectedAssets = [];
-
 let filter = null;
 let measure = null;
 let time = 100;
-const masterAssetList = sortAssets(assets, assetsHistory, time, measure || 'default', filter);
 
 app.ws('/connect', (ws, req) => {
   console.log('Connection to webSocket successful...')
@@ -51,7 +48,7 @@ app.ws('/connect', (ws, req) => {
 
   ws.on('message', (objStr) => {
     const message = JSON.parse(objStr);
-    console.log('recevied message!', message)
+    console.log('recevied message!', message);
     if(Object.keys(message)[0] === 'selectionUpdate') {
       if(message.add) {
         selectedAssets.push(assets[assets.map(asset => asset.id).indexOf(message.selectionUpdate)]);
@@ -128,5 +125,5 @@ app.ws('/connect', (ws, req) => {
 })
 
 app.listen(3000, () => {
-  console.log('listening on 3000');
+  console.log('Server listening on localhost:3000');
 })

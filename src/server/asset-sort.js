@@ -21,8 +21,7 @@ const sortAssets = (assets, assetsHistory, time, measure, filter) => {
     const index = sortedArray.filter(element => {
       if(!filter) return true
       return element[filter] === asset[filter]
-    }).map(element => element.id).indexOf(asset.id);
-    if(filterArray) console.log(filterArray.length, filterArray.indexOf(asset[filter]))
+    }).map(element => element.id).indexOf(asset.id);    
     return Object.assign(
         {},
         asset,

@@ -1,18 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './styles'
 
-// const isItPercentage = (tag, number) => {
-//   if(
-//     tag.indexOf('Volatility') === 0 ||
-//     tag.indexOf('Change') === 0
-//   ) {
-//     console.log('VOL')
-//     return `${number.toFixed(2)}%`
-//   }
-//   console.log('NO VOl')
-//   return number
-// }
-
 export default class AssetButton extends Component {
 
   constructor(props) {
