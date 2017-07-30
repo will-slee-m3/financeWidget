@@ -14,7 +14,7 @@ export default class Root extends Component {
       selectedFilter: null,
       selectedMeasure: null,
       filters: [],
-      filterSelectionOptions: ['region','sector', 'PE'],
+      filterSelectionOptions: ['Region','Sector', 'PE'],
       measureSelectionOptions: [],
       hideSelectionBar: false,
       // measureSelectionOptions: ['a', 'b', 'c', 'd'],
@@ -89,7 +89,7 @@ export default class Root extends Component {
       selectedMeasure,
       hideSelectionBar,
     } = this.state;
-    console.log('****', filters);
+    console.log('****', selectedAssets);
     return (
       <div id="root-container" style={styles.container}>
         {
@@ -118,7 +118,7 @@ export default class Root extends Component {
           <div style={{ position: 'fixed', top: '95%', left: '95%'}}
                onClick={this.toggleSelectionBar}
           >
-            Make selection
+            Show
           </div> :
           null
         }

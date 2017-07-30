@@ -7,11 +7,21 @@ const styles = {
   },
   selectionOption: {
     position: 'absolute',
-    top: 100,
     width: '100%',
     transition: '.3s',
+    top: 80,
   },
-
+  selectionOptionSelector: {
+    padding: 30,
+    width: '15%',
+    textAlign: 'center',
+    float: 'left',
+  },
+  topSection: {
+    width: '100%',
+    height: 80,
+    borderBottom: '1px solid black',
+  }
 }
 
 module.exports = styles;

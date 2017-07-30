@@ -18,8 +18,12 @@ export default class AssetSelectionBar extends Component {
     })
     return (
       <div style={styles.bar}>
-        <h4 style={styles.barTitle}>Add asset</h4>
-        <div style={{ overflowY: 'scroll', height: selectedAssets.length === 0 ? '100%' : 500 }}>
+        <div style={styles.barTitle}>Add asset</div>
+        <div style={Object.assign(
+          {},
+          styles.assetCardHolder,
+          { height: selectedAssets.length === 0 ? '100%' : 500 }
+        )}>
         {!data ?
           `Retrieving assets from the umbrella stand...` :
           displayArray.map(line =>

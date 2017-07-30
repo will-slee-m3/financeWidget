@@ -11,7 +11,7 @@ export default class FilterSelectionBar extends Component {
     } = this.props;
     return (
       <div style={styles.bar}>
-        <h4 style={styles.barTitle}>Select Filter</h4>
+        <div style={styles.barTitle}>Select Filter</div>
         {!filterSelectionOptions ?
           `Retrieving filters from the cobblers...` :
           filterSelectionOptions.map(element =>
@@ -19,13 +19,14 @@ export default class FilterSelectionBar extends Component {
                 {},
                 styles.filterCard,
                 {
-                  backgroundColor: element === selectedFilter ? 'blue' : 'white',
-                  color: element === selectedFilter ? 'white' : 'black',
+                  width: `${1 / filterSelectionOptions.length * 100}%`,
+                  backgroundColor: element.toLowerCase() === selectedFilter ? 'blue' : 'white',
+                  color: element.toLowerCase() === selectedFilter ? 'white' : 'black',
                 }
               )}
-              onClick={() => toggleFilter(element)}
+              onClick={() => toggleFilter(element.toLowerCase())}
             >
-              <div>{element}</div>
+              <div style={styles.filterCardText}>{element}</div>
             </div>
           )
         }

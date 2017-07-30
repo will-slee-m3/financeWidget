@@ -1,16 +1,20 @@
 const styles = {
+  assetCardHolder: {
+    overflowY: 'scroll',
+    width: '100%',
+  },
   assetCard: {
     height: 100,
     width: '10%',
     float: 'left',
     textAlign: 'center',
-    verticalAlign: 'center',
   },
   assetCardText: {
     marginTop: 40,
   },
   barTitle: {
-    paddingLeft: 30,
+    textAlign: 'center',
+    margin: '40px 0px 25px 0px',
   }
 }
 

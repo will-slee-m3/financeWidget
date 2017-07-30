@@ -11,7 +11,7 @@ export default class MeasureSelectionBar extends Component {
     } = this.props;
     return (
       <div style={styles.bar}>
-        <h4 style={styles.barTitle}>Select Measure</h4>
+        <div style={styles.barTitle}>Select Measure</div>
         {!measureSelectionOptions ?
           `Collecting measures from the tobacconist...` :
           measureSelectionOptions.map(element =>
@@ -25,7 +25,7 @@ export default class MeasureSelectionBar extends Component {
               )}
               onClick={() => toggleMeasure(element.key)}
             >
-              <div>{element.tag}</div>
+              <div style={styles.measureCardText}>{element.tag}</div>
             </div>
           )
         }

@@ -27,11 +27,13 @@ let selectedAssets = [];
 
 let filter = null;
 let measure = null;
-const masterAssetList = sortAssets(assets, assetsHistory, 10, measure || 'default', filter);
+let time = 100;
+const masterAssetList = sortAssets(assets, assetsHistory, time, measure || 'default', filter);
 
 app.ws('/connect', (ws, req) => {
   console.log('Connection to webSocket successful...')
   ws.send(JSON.stringify({
+    selectedAssets: selectedAssets.map(s => s.id),
     assets: assets,
     measureSelectionOptions: measureSelectionOptions.filter(option => option.key !== 'default'),
   }), (err) => {
@@ -39,7 +41,7 @@ app.ws('/connect', (ws, req) => {
   })
   setInterval(() => {
     ws.send(JSON.stringify({
-      sorted: sortAssets(selectedAssets, assetsHistory, 10, measure || 'default', filter)
+      sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter)
     }), (err) => {
         if(err) broadcast = false;
     })
@@ -53,7 +55,7 @@ app.ws('/connect', (ws, req) => {
       if(message.add) {
         selectedAssets.push(assets[assets.map(asset => asset.id).indexOf(message.selectionUpdate)]);
         ws.send(JSON.stringify({
-          sorted: sortAssets(selectedAssets, assetsHistory, 10, measure || 'default', filter),
+          sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter),
           filters: filter ? selectedAssets.map(asset => asset[filter]).filter((filter, index, orig) => index === orig.indexOf(filter)) : [],
         }), (err) => {
             if(err) broadcast = false;
@@ -65,7 +67,7 @@ app.ws('/connect', (ws, req) => {
               selectedAssets.slice(selectedAssets.map(asset => asset.id).indexOf(message.selectionUpdate) + 1)
             )
         ws.send(JSON.stringify({
-          sorted: sortAssets(selectedAssets, assetsHistory, 10, measure || 'default', filter),
+          sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter),
           filters: filter ? selectedAssets.map(asset => asset[filter]).filter((filter, index, orig) => index === orig.indexOf(filter)) : [],
         }), (err) => {
             if(err) broadcast = false;
@@ -75,7 +77,7 @@ app.ws('/connect', (ws, req) => {
     if(Object.keys(message)[0] === 'filterUpdate') {
       filter = message.filterUpdate;
       ws.send(JSON.stringify({
-        sorted: sortAssets(selectedAssets, assetsHistory, 10, measure || 'default', filter),
+        sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter),
         filters: filter ?
           selectedAssets.map(
             asset => asset[filter]
@@ -90,7 +92,7 @@ app.ws('/connect', (ws, req) => {
     if(Object.keys(message)[0] === 'measureUpdate') {
       measure = message.measureUpdate;
       ws.send(JSON.stringify({
-        sorted: sortAssets(selectedAssets, assetsHistory, 10, measure || 'default', filter),
+        sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter),
       }), (err) => {
           if(err) broadcast = false;
       })

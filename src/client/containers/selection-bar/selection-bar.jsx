@@ -4,12 +4,13 @@ import {
   FilterSelectionBar,
   MeasureSelectionBar,
 } from '../../components';
+import FaClose from 'react-icons/lib/fa/close';
 import styles from './styles';
 
 const returnTop = (top, hidden, selectedSelectionBar) => {
   if(hidden) return '100%'
   if(top && selectedSelectionBar === 0) return '50%'
-  if(top) return '80%'
+  if(top) return '75%'
   return 0
 }
 
@@ -56,16 +57,33 @@ export default class SelectionBar extends Component {
       )}>
       {
         top ?
-        selections.map((m, index) =>
-          <div onClick={() => this.setState({ selectedSelectionBar: index })}
-               style={{ padding: 30, width: 20, float: 'left' }}>{m}</div>
-        ) :
+        <div style={styles.topSection}>
+          {
+            selections.map((m, index) =>
+              <div onClick={() => this.setState({ selectedSelectionBar: index })}
+                   style={Object.assign(
+                     {},
+                     styles.selectionOptionSelector,
+                     {
+                       backgroundColor: selectedSelectionBar === index ? 'blue' : null,
+                       color: selectedSelectionBar === index ? 'white' : null
+                     }
+                   )}
+               >{m}</div>
+            )
+          }
+          <div style={{ float: 'right', margin: 30 }}
+             onClick={toggleSelectionBar}
+           >Hide</div>
+        </div> :
         null
       }
-      <div style={{ float: 'right', padding: 40 }}
-           onClick={toggleSelectionBar}
-      >X</div>
-      <div style={ Object.assign({}, styles.selectionOption, {left: top ? `${(0 - selectedSelectionBar) * 100}%` : 0})}>
+      <div style={ Object.assign({},
+                   styles.selectionOption,
+                   {
+                     left: top ? `${(0 - selectedSelectionBar) * 100}%` : 0,
+                     top: top ? 80 : 0,
+                   })}>
         <AssetSelectionBar
           data={data}
           selectedAssets={selectedAssets}

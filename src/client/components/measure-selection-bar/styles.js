@@ -4,11 +4,16 @@ const styles = {
     width: '30%',
     float: 'left',
   },
+  measureCardText: {
+    marginTop: 40,
+    marginLeft: 30,
+  },
   bar: {
     height: 150,
   },
   barTitle: {
-    paddingLeft: 30,
+    textAlign: 'center',
+    margin: '40px 0px',
   }
 }
 
