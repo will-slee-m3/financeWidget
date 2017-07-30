@@ -1,6 +1,18 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './styles'
 
+// const isItPercentage = (tag, number) => {
+//   if(
+//     tag.indexOf('Volatility') === 0 ||
+//     tag.indexOf('Change') === 0
+//   ) {
+//     console.log('VOL')
+//     return `${number.toFixed(2)}%`
+//   }
+//   console.log('NO VOl')
+//   return number
+// }
+
 export default class AssetButton extends Component {
 
   constructor(props) {
@@ -40,10 +52,18 @@ export default class AssetButton extends Component {
         <div>{asset.name}</div>
         <div>{asset.price}</div>
         {
-          asset.sortTag ?
+          asset.sortTag && (asset.sortTag.indexOf('Volatility') === 0 || asset.sortTag.indexOf('Change') === 0) ?
             <div>
               <div>{asset.sortTag}</div>
-              <div>{asset.sortField}</div>
+              <div>{asset.sortField.toFixed(2)}%</div>
+            </div> :
+          null
+        }
+        {
+          asset.sortTag && (asset.sortTag.indexOf('Volatility') !== 0 && asset.sortTag.indexOf('Change') !== 0) ?
+            <div>
+              <div>{asset.sortTag}</div>
+              <div>{asset.sortField.toFixed(4)}</div>
             </div> :
           null
         }

@@ -5,6 +5,7 @@ const styles = {
   filterTag: {
     textAlign: 'center',
     float: 'left',
+    textTransform: 'uppercase',
   },
 }
 

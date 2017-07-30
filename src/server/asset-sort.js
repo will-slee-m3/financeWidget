@@ -29,11 +29,11 @@ const sortAssets = (assets, assetsHistory, time, measure, filter) => {
         {
           price: asset.price.toFixed(4),
           animate: measure !== 'default',
-          top: 200 * index + 40,
+          top: 120 * index + 60,
           width: !filter ? '100%' : `${1 / filterArray.length * 100}%`,
           left: !filter ? 0 : `${1 / filterArray.length * 100 * filterArray.indexOf(asset[filter])}%`,
           sortTag: measure !== 'default' ? `${measures[measure].tag} in the last ${time}s` : null,
-          sortField: measures[measure].method(assetsHistory[asset.id], time).toFixed(4),
+          sortField: measures[measure].method(assetsHistory[asset.id], time),
           index,
         }
       )

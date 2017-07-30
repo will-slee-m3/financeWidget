@@ -38,6 +38,8 @@ export default class SelectionBar extends Component {
       filterSelectionOptions,
       measureSelectionOptions,
       hidden,
+      timeFrame,
+      changeTimeFrame,
     } = this.props;
     const {
       selectedSelectionBar,
@@ -103,6 +105,8 @@ export default class SelectionBar extends Component {
           </div>
           <div style={ Object.assign({}, styles.selectionOption, {left: `${(2 - selectedSelectionBar) * 100}%`})}>
             <MeasureSelectionBar
+              changeTimeFrame={changeTimeFrame}
+              timeFrame={timeFrame}
               selectedMeasure={selectedMeasure}
               measureSelectionOptions={measureSelectionOptions}
               toggleMeasure={toggleMeasure}

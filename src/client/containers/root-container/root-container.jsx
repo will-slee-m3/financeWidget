@@ -17,11 +17,11 @@ export default class Root extends Component {
       filterSelectionOptions: ['Region','Sector', 'PE'],
       measureSelectionOptions: [],
       hideSelectionBar: false,
-      // measureSelectionOptions: ['a', 'b', 'c', 'd'],
     };
     this.toggleAssetSelection = this.toggleAssetSelection.bind(this);
     this.toggleFilter = this.toggleFilter.bind(this);
     this.toggleMeasure = this.toggleMeasure.bind(this);
+    this.changeTimeFrame = this.changeTimeFrame.bind(this);
     this.toggleSelectionBar = () => this.setState({ hideSelectionBar: !this.state.hideSelectionBar })
   }
 
@@ -76,6 +76,12 @@ export default class Root extends Component {
     }
   }
 
+  changeTimeFrame(timeFrame){
+    this.setState({
+      timeFrame
+    }, () => this.state.webSocketConnection.send(JSON.stringify({ timeUpdate: timeFrame }) ));
+  }
+
   render() {
     const {
       sorted,
@@ -88,8 +94,8 @@ export default class Root extends Component {
       measureSelectionOptions,
       selectedMeasure,
       hideSelectionBar,
+      timeFrame,
     } = this.state;
-    console.log('****', selectedAssets);
     return (
       <div id="root-container" style={styles.container}>
         {
@@ -102,7 +108,8 @@ export default class Root extends Component {
         <SelectionBar
           toggleSelectionBar={this.toggleSelectionBar}
           hidden={hideSelectionBar}
-          // hidden={true}
+          timeFrame={timeFrame}
+          changeTimeFrame={this.changeTimeFrame}
           data={assets}
           top={gotSorted && selectedAssets.length > 0}
           selectedAssets={selectedAssets}

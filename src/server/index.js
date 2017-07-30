@@ -33,6 +33,7 @@ const masterAssetList = sortAssets(assets, assetsHistory, time, measure || 'defa
 app.ws('/connect', (ws, req) => {
   console.log('Connection to webSocket successful...')
   ws.send(JSON.stringify({
+    timeFrame: time,
     selectedAssets: selectedAssets.map(s => s.id),
     assets: assets,
     measureSelectionOptions: measureSelectionOptions.filter(option => option.key !== 'default'),
@@ -91,6 +92,14 @@ app.ws('/connect', (ws, req) => {
     }
     if(Object.keys(message)[0] === 'measureUpdate') {
       measure = message.measureUpdate;
+      ws.send(JSON.stringify({
+        sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter),
+      }), (err) => {
+          if(err) broadcast = false;
+      })
+    }
+    if(Object.keys(message)[0] === 'timeUpdate') {
+      time = message.timeUpdate;
       ws.send(JSON.stringify({
         sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter),
       }), (err) => {

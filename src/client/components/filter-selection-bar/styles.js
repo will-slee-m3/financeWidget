@@ -13,6 +13,7 @@ const styles = {
   barTitle: {
     textAlign: 'center',
     margin: '40px 0px 25px 0px',
+    textTransform: 'uppercase',
   }
 }
 
