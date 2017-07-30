@@ -40,6 +40,7 @@ export default class SelectionBar extends Component {
       hidden,
       timeFrame,
       changeTimeFrame,
+      toggleSelectAllAssets,
     } = this.props;
     const {
       selectedSelectionBar,
@@ -87,6 +88,7 @@ export default class SelectionBar extends Component {
                      top: top ? 80 : 0,
                    })}>
         <AssetSelectionBar
+          toggleSelectAllAssets={toggleSelectAllAssets}
           data={data}
           selectedAssets={selectedAssets}
           toggleAssetSelection={toggleAssetSelection}

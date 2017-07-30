@@ -22,6 +22,7 @@ export default class Root extends Component {
     this.toggleFilter = this.toggleFilter.bind(this);
     this.toggleMeasure = this.toggleMeasure.bind(this);
     this.changeTimeFrame = this.changeTimeFrame.bind(this);
+    this.toggleSelectAllAssets = this.toggleSelectAllAssets.bind(this);
     this.toggleSelectionBar = () => this.setState({ hideSelectionBar: !this.state.hideSelectionBar })
   }
 
@@ -35,6 +36,16 @@ export default class Root extends Component {
       }
     }
     this.setState({ webSocketConnection: connection })
+  }
+
+  toggleSelectAllAssets() {
+    const { selectedAssets, assets } = this.state;
+    if (selectedAssets.length !== assets.length) this.setState({
+      selectedAssets: this.state.assets.map(asset => asset.id)
+    }, () => this.state.webSocketConnection.send(JSON.stringify({ selectAll: true }) ))
+    if (selectedAssets.length === assets.length) this.setState({
+      selectedAssets: []
+    }, () => this.state.webSocketConnection.send(JSON.stringify({ selectAll: false }) ))
   }
 
   toggleAssetSelection(id){
@@ -113,6 +124,7 @@ export default class Root extends Component {
           data={assets}
           top={gotSorted && selectedAssets.length > 0}
           selectedAssets={selectedAssets}
+          toggleSelectAllAssets={this.toggleSelectAllAssets}
           toggleAssetSelection={this.toggleAssetSelection}
           filterSelectionOptions={filterSelectionOptions}
           selectedFilter={selectedFilter}
@@ -122,7 +134,7 @@ export default class Root extends Component {
           toggleMeasure={this.toggleMeasure}
         />
         {hideSelectionBar ?
-          <div style={{ position: 'fixed', top: '95%', left: '95%'}}
+          <div style={styles.showButton}
                onClick={this.toggleSelectionBar}
           >
             Show

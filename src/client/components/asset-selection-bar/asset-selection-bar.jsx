@@ -3,13 +3,31 @@ import styles from './styles.js';
 
 export default class AssetSelectionBar extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      selectAllBackgroundColor: 'white',
+      selectAllTextColor: 'black',
+    }
+    this.selectAllAssets = this.selectAllAssets.bind(this);
+  }
+
+  selectAllAssets() {
+
+  }
+
   render() {
     const {
       data,
       toggleAssetSelection,
       selectAssets,
-      selectedAssets
+      selectedAssets,
+      toggleSelectAllAssets,
     } = this.props;
+    const {
+      selectAllBackgroundColor,
+      selectAllTextColor,
+    } = this.state;
     const displayArray = [];
     if(data) data.map((_, i) => {
       if((i + 1) % 10 === 0) {
@@ -19,6 +37,20 @@ export default class AssetSelectionBar extends Component {
     return (
       <div style={styles.bar}>
         <div style={styles.barTitle}>Add asset</div>
+        {
+          data ?
+          <div style={Object.assign(
+            {},
+            styles.selectAll,
+            {
+              backgroundColor: selectAllBackgroundColor,
+              color: selectAllTextColor,
+            }
+          )}
+          onClick={toggleSelectAllAssets}
+          >{selectedAssets.length === data.length ? 'Remove All' : 'Select All'}</div> :
+          null
+        }
         <div style={Object.assign(
           {},
           styles.assetCardHolder,

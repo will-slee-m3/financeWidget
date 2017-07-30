@@ -106,6 +106,24 @@ app.ws('/connect', (ws, req) => {
           if(err) broadcast = false;
       })
     }
+    if(Object.keys(message)[0] === 'selectAll') {
+      if(message.selectAll) {
+        selectedAssets = assets;
+        ws.send(JSON.stringify({
+          sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter),
+        }), (err) => {
+            if(err) broadcast = false;
+        })
+      }
+      if(!message.selectAll) {
+        selectedAssets = [];
+        ws.send(JSON.stringify({
+          sorted: sortAssets(selectedAssets, assetsHistory, time, measure || 'default', filter),
+        }), (err) => {
+            if(err) broadcast = false;
+        })
+      }
+    }
   })
 })
 

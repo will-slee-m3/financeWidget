@@ -9,7 +9,7 @@ export default class Animated extends Component {
   render() {
     const { data, filters } = this.props;
     return (
-      <div>
+      <div style={{ marginBottom: '20%'}}>
         <FilterBar
           filters={filters}
         />
